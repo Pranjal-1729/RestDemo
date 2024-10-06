@@ -1,7 +1,10 @@
 package com.thinkconstructive.rest_demo.controller;
 
 import com.thinkconstructive.rest_demo.model.CloudVendor;
+import com.thinkconstructive.rest_demo.response.ResponseHandler;
 import com.thinkconstructive.rest_demo.service.CloudVendorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +22,10 @@ public class CloudVendorAPIService {
 
     // REad specific vendor details
     @GetMapping("{vendorId}")
-    public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorId){
-        return cloudVendorService.getCloudVendor(vendorId);
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorId){
+        return ResponseHandler.responseBuilder("Requested Vendor Details are as below : ",
+                HttpStatus.OK,cloudVendorService.getCloudVendor(vendorId));
+        //return cloudVendorService.getCloudVendor(vendorId);
     }
 
     // Read all vendor details
